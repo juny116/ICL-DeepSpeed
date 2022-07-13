@@ -7,6 +7,11 @@
 
 2. Install deepspeed
 
+## How to Run (example)
+See details about config in conf directory
+
+<code> deepspeed --include localhost:0,1,2,3 --no_local_rank distributed_main.py ds_configs=zero3 experiments=sst2 models=gpt-j seed=100 </code>
+
 ## Notice!
 * Few-shot data file is responsible for **Order** & **Label Balance** of demonstrations
     - Process order & balance in label sampling stage
@@ -36,7 +41,3 @@ Parameters
 
 To run sample scripts : <code>sh sample_scripts/generate_dataset.sh</code>
 
-## How to Run (example)
-See details about config in conf directory
-
-<code> deepspeed --include localhost:0,1,2,3 --no_local_rank distributed_main.py ds_configs=zero3 experiments=sst2 models=gpt-j seed=100 </code>
