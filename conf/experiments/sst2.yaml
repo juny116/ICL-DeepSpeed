@@ -1,0 +1,7 @@
+task: sst2
+tag: direct_w_template
+template: "Review: [S1]\nSentiment:[BOL][Label]"
+verbalizer: 
+  0 : " negative"
+  1 : " positive"
+demo_sep: "\n\n\n"

@@ -1,0 +1,19 @@
+seed: 42
+demo_accuracy: 1
+k: 16
+
+data_base: data
+train_path: ./${data_base}/${experiments.task}/k-${k}-seed-${seed}/train.jsonl
+test_path: ./${data_base}/${experiments.task}/k-${k}-seed-${seed}/test.jsonl
+
+output_base: outputs
+output_path: ./${output_base}/${models.name}/${experiments.task}/${experiments.tag}
+
+hydra:
+  run:
+    dir: ./${output_base}/${models.name}/${experiments.task}/${experiments.tag}
+defaults:
+  - models: gpt-neox
+  - experiments: sst2
+  - ds_configs: single
+  - _self_

@@ -1,0 +1,5 @@
+name: gpt-neo
+model_name_or_path: EleutherAI/gpt-neo-2.7B
+bol_token: "BoLToKen"
+add_bol_to_special_token: true
+hidden_size: 2560

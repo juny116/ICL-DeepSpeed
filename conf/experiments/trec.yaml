@@ -1,0 +1,11 @@
+task: trec
+tag: direct_w_template
+template: "Question: [S1]\nType:[BOL][Label]"
+verbalizer: 
+  0 : " description"
+  1 : " entity"
+  2 : " expression"
+  3 : " human"
+  4 : " number"
+  5 : " location"
+demo_sep: "\n\n\n"

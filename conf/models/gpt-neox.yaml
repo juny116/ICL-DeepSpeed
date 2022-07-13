@@ -1,0 +1,5 @@
+name: gpt-neox
+model_name_or_path: EleutherAI/gpt-neox-20b
+bol_token: "BoLToKen"
+add_bol_to_special_token: true
+hidden_size: 6144
