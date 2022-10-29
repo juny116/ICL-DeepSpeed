@@ -13,6 +13,7 @@ import deepspeed
 import numpy as np
 import datasets
 from datasets import Metric, load_dataset, load_metric, DatasetDict
+from datasets import set_caching_enabled
 from tqdm.auto import tqdm
 from transformers.deepspeed import HfDeepSpeedConfig
 import transformers
@@ -27,6 +28,7 @@ from transformers import (
 def main(config: DictConfig) -> None:
     start_time = time.time()
     # for debugging purpose
+    set_caching_enabled(False)
     torch.set_printoptions(profile="full")
     # To avoid warnings about parallelism in tokenizers
     os.environ["TOKENIZERS_PARALLELISM"] = "false"  
@@ -66,6 +68,8 @@ def main(config: DictConfig) -> None:
         transformers.logging.set_verbosity_info()
         datasets.logging.set_verbosity_info()
         logger.setLevel(logging.INFO)
+        result_file = open(os.path.join(config['output_path'], "results.tsv"), "a")
+        result_writer = csv.writer(result_file, delimiter='\t')
     else:
         transformers.logging.set_verbosity_error()
         datasets.logging.set_verbosity_error()
@@ -226,6 +230,7 @@ def main(config: DictConfig) -> None:
     if local_rank == 0:
         logger.info(f"  ACCURACY                     = {result['accuracy']}")
         logger.info(f"  F1                           = {result['f1']}")
+        result_writer.writerow([config['demo_accuracy'], config['seed'], result['accuracy'], result['f1']])
         with open(os.path.join(config['output_path'], f"acc-{config['demo_accuracy']}-seed-{config['seed']}_predictions.jsonl"), 'a') as prediction_file:
             for l, p, prob in zip(result['labels'], result['predictions'], result['probs']):
                 json.dump({"label": l, "prediction": p, "prob": prob}, prediction_file)
